@@ -1,6 +1,6 @@
 <template>
     <div class="user-list">
-        <h2>👥 User List</h2>
+        <h2>👤 User List</h2>
 
         <div class="user-header">
             <span class="name">Name</span>
