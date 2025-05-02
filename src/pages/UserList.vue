@@ -1,6 +1,13 @@
 <template>
     <div class="user-list">
-        <h2>👤 User List</h2>
+        <div class="header-wrapper">
+            <button class="add-user-button" type="button" @click="showPopup=true">
+                <i class="mdi mdi-plus-thick"></i>
+                <p class="text">Add User</p>
+            </button>
+            <h2>👤 User List</h2>
+        </div>
+
 
         <div class="user-header">
             <span class="name">Name</span>
@@ -28,14 +35,18 @@
                 </span>
             </li>
         </ul>
+
+        <AddUserPopup v-if="showPopup" @close="showPopup=false" />
     </div>
 </template>
 
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import AddUserPopup from '../components/AddUserPopup.vue'
 
 const users = ref([])
+const showPopup = ref(false)
 
 async function fetchGroupName(url) {
     try {
@@ -95,15 +106,63 @@ function groupClass(group) {
     padding: 2rem;
     background-color: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    height: 85vh;
 
-    h2 {
-        margin-bottom: 1.5rem;
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #1f2937;
-        border-bottom: 2px solid #e5e7eb;
-        padding-bottom: 0.5rem;
+    .header-wrapper {
+        position: relative;
+
+        .add-user-button {
+            position: absolute;
+            top: 40%;
+            left: 0;
+            transform: translateY(-50%);
+            z-index: 10;
+            background-color: #3b82f6; 
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.2s, transform 0.2s;
+            display: flex;
+
+            &:hover {
+                background-color: #2563eb;
+            }
+
+            &:active {
+                transform: translateY(-50%) scale(0.98);
+            }
+
+            &:focus {
+                outline: 2px solid #93c5fd;
+                outline-offset: 2px;
+            }
+
+            i {
+                margin-right: 0.5rem;
+                font-size: 1.1rem;
+                vertical-align: middle;
+            }
+
+            .text {
+                margin: 2px 0 0 0;
+            }
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+            position: relative;
+        }
     }
 
     .user-header,
@@ -168,6 +227,9 @@ function groupClass(group) {
         list-style: none;
         padding: 0;
         margin: 0;
+        max-height: 380px;
+        overflow-y: auto;
+        padding-right: 0.5rem;
 
         li {
             padding: 1rem;

@@ -52,7 +52,8 @@ onMounted(async () => {
     padding: 2rem;
     background-color: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    height: 85vh;
 
     h2 {
         margin-bottom: 1.5rem;
@@ -118,6 +119,9 @@ onMounted(async () => {
         list-style: none;
         padding: 0;
         margin: 0;
+        max-height: 380px;
+        overflow-y: auto;
+        padding-right: 0.5rem;
 
         li {
             padding: 1rem;
